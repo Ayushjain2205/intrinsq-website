@@ -7,9 +7,9 @@ import img3 from "@/assets/ledger-3.jpg";
 import { Eyebrow, SectionHeading, Gold } from "./primitives";
 import { Reveal, Stagger, StaggerItem } from "./motion-primitives";
 
-const img1Src = typeof img1 === "string" ? img1 : (img1 as Record<string, string>).src;
-const img2Src = typeof img2 === "string" ? img2 : (img2 as Record<string, string>).src;
-const img3Src = typeof img3 === "string" ? img3 : (img3 as Record<string, string>).src;
+const img1Src = typeof img1 === "string" ? img1 : img1.src;
+const img2Src = typeof img2 === "string" ? img2 : img2.src;
+const img3Src = typeof img3 === "string" ? img3 : img3.src;
 
 const posts = [
   {

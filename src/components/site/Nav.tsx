@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import logoImg from "@/assets/logo.png";
 
-const logoSrc = typeof logoImg === "string" ? logoImg : (logoImg as Record<string, string>).src;
+const logoSrc = typeof logoImg === "string" ? logoImg : logoImg.src;
 
 const links = [
   { label: "About", href: "#about" },

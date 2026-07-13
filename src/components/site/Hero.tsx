@@ -5,7 +5,7 @@ import { useRef } from "react";
 import heroImg from "@/assets/hero-marble.png";
 import { Eyebrow, Gold } from "./primitives";
 
-const heroSrc = typeof heroImg === "string" ? heroImg : (heroImg as Record<string, string>).src;
+const heroSrc = typeof heroImg === "string" ? heroImg : heroImg.src;
 
 const wordVariants: Variants = {
   hidden: { y: "110%", opacity: 0 },
