@@ -7,6 +7,19 @@ import { mockPosts, MockPost } from "@/sanity/mockData";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { ArrowRight, Calendar, User, Info, FileText } from "lucide-react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog | IntrinsQ Insights",
+  description:
+    "Strategic insights, guidance, and reflections on corporate structure, tax planning, payroll strategy, and fiscal compliance.",
+  openGraph: {
+    title: "Blog | IntrinsQ Insights",
+    description:
+      "Financial judgment that compounds. Perspectives on finance, tax, HR, and compliance from IntrinsQ.",
+    type: "website",
+  },
+};
 
 // Force dynamic because we might fallback to mock data or fetch live data dynamically
 export const revalidate = 60;

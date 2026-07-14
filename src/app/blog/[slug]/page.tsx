@@ -10,6 +10,8 @@ import { Footer } from "@/components/site/Footer";
 import { PortableText, PortableTextComponents } from "@portabletext/react";
 import { ArrowLeft, Calendar, User, Info, Clock } from "lucide-react";
 
+import type { Metadata } from "next";
+
 // For ISR/SSR
 export const revalidate = 60;
 
@@ -18,6 +20,61 @@ export async function generateStaticParams() {
   return mockPosts.map((p) => ({
     slug: p.slug.current,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const { post } = await getPost(slug);
+
+  if (!post) {
+    return {
+      title: "Post Not Found | IntrinsQ Insights",
+    };
+  }
+
+  // Handle dynamic image
+  let ogImageUrl =
+    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop";
+  if (post.mainImage?.assetUrl) {
+    ogImageUrl = post.mainImage.assetUrl;
+  } else if (post.mainImage) {
+    try {
+      ogImageUrl = urlFor(post.mainImage).width(1200).height(630).url();
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  return {
+    title: `${post.title} | IntrinsQ Insights`,
+    description:
+      post.excerpt || "Strategic advisory and compounding financial insights from IntrinsQ.",
+    openGraph: {
+      title: post.title,
+      description:
+        post.excerpt || "Strategic advisory and compounding financial insights from IntrinsQ.",
+      type: "article",
+      publishedTime: post.publishedAt,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [ogImageUrl],
+    },
+  };
 }
 
 async function getPost(slug: string): Promise<{ post: any; isFallback: boolean }> {
@@ -172,8 +229,33 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     },
   };
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt || post.title,
+    image: getPostImageSrc(post),
+    datePublished: post.publishedAt,
+    author: {
+      "@type": "Person",
+      name: post.author?.name || "IntrinsQ Advisor",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "IntrinsQ",
+      logo: {
+        "@type": "ImageObject",
+        url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/logo.png`,
+      },
+    },
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Nav />
 
       {/* Spacer for navigation */}
