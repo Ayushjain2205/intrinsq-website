@@ -1,17 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import logoImg from "@/assets/logo.png";
 
 const logoSrc = typeof logoImg === "string" ? logoImg : logoImg.src;
 
 const links = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Our Approach", href: "#approach" },
-  { label: "Our Blog", href: "#ledger" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "/#about" },
+  { label: "Services", href: "/#services" },
+  { label: "Our Approach", href: "/#approach" },
+  { label: "Our Blog", href: "/blog" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export function Nav() {
@@ -38,7 +39,7 @@ export function Nav() {
       }
     >
       <div className="mx-auto max-w-[1400px] px-6 md:px-10 h-20 flex items-center justify-between">
-        <a href="#top" className="flex items-center gap-3 group">
+        <Link href="/" className="flex items-center gap-3 group">
           <motion.img
             src={logoSrc}
             alt="IntrinsQ"
@@ -46,7 +47,7 @@ export function Nav() {
             whileHover={{ scale: 1.04 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           />
-        </a>
+        </Link>
         <nav className="hidden lg:flex items-center gap-10">
           {links.map((l) => (
             <a
@@ -60,7 +61,7 @@ export function Nav() {
           ))}
         </nav>
         <motion.a
-          href="#contact"
+          href="/#contact"
           className="group inline-flex items-center gap-2 bg-navy text-cream px-5 py-3 text-sm relative overflow-hidden"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}

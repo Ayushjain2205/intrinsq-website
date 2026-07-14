@@ -1,5 +1,6 @@
 "use client";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { motion } from "motion/react";
 import img1 from "@/assets/ledger-1.jpg";
 import img2 from "@/assets/ledger-2.jpg";
@@ -43,13 +44,13 @@ export function Ledger() {
               Ideas that <Gold>compound.</Gold>
             </SectionHeading>
           </div>
-          <a
-            href="#"
+          <Link
+            href="/blog"
             className="group inline-flex items-center gap-2 text-sm text-navy border-b border-gold/60 pb-1 hover:border-gold"
           >
             View Blog
             <ArrowRight className="h-4 w-4 text-gold transition-transform group-hover:translate-x-1" />
-          </a>
+          </Link>
         </Reveal>
 
         <Stagger className="grid md:grid-cols-3 gap-8 md:gap-6" stagger={0.12}>
