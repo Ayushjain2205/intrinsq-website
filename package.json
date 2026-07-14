@@ -52,7 +52,7 @@
     "lucide-react": "^0.575.0",
     "motion": "^12.42.2",
     "next": "^15.1.0",
-    "next-sanity": "^13.1.2",
+    "next-sanity": "13.1.0",
     "postcss": "^8.4.49",
     "react": "^19.2.0",
     "react-day-picker": "^9.14.0",
